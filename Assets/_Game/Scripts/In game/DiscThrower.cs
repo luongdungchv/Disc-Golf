@@ -6,16 +6,16 @@ public class DiscThrower : MonoBehaviour
 {
     [SerializeField] private Disc discObj;
     [SerializeField] private DiscAimer aimer;
+    [SerializeField] private UIBender uiBender;
+    [SerializeField] private CameraFollow cameraFollow;
 
-    [SerializeField] private int curlDir = 1;
-    [SerializeField] private int bend;
+    [SerializeField] private float curl;
+    [SerializeField] private float throwStrength;
 
     private void Start(){
         this.Init();
-    }
-
-    public void SetCurlDirection(int dir){
-        this.curlDir = dir;
+        uiBender.RegisterOnDragCallback(this.UIBendDragCallback);
+        uiBender.RegisterOnDropCallback(this.UIBendDropCallback);
     }
 
     public void Init(){
@@ -24,11 +24,12 @@ public class DiscThrower : MonoBehaviour
         aimer.transform.position = this.transform.position;
         discObj.transform.localPosition = Vector3.zero;
         discObj.transform.localEulerAngles = Vector3.zero;
-
-
+        this.cameraFollow.SetFollow(false);
     }  
     public void Throw(){
-        this.discObj.StartFlying(aimer.Direction, this.curlDir);
+        this.discObj.transform.SetParent(null);
+        this.discObj.StartFlying(aimer.Direction, this.curl, this.throwStrength);
+        this.cameraFollow.SetFollow(true);
     }
 
     private void Update() {
@@ -39,6 +40,15 @@ public class DiscThrower : MonoBehaviour
             this.Init();
         }
 
-        this.discObj.Bend(this.bend);
+        //this.discObj.Bend(this.bend);
     }  
+
+    private void UIBendDragCallback(float dragLength, float hValue){
+        this.curl = -hValue / dragLength;
+        this.discObj.Bend(Mathf.Asin(hValue / dragLength) * Mathf.Rad2Deg);
+        this.throwStrength = dragLength / 265;
+    }
+    private void UIBendDropCallback(){
+        this.Throw();
+    }
 }
