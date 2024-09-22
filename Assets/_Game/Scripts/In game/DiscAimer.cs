@@ -8,6 +8,8 @@ public class DiscAimer : MonoBehaviour
     [SerializeField] private Transform camHolder;
     [SerializeField] private Vector2 verticalRotationLimit;
 
+    public Vector3 Direction => this.transform.forward;
+
     private Camera mainCam;
 
     private void Awake(){
