@@ -20,10 +20,14 @@ public class DiscThrower : MonoBehaviour
 
     public void Init(){
         this.discObj.StopFlying();
+
         discObj.transform.SetParent(aimer.transform);
+
         aimer.transform.position = this.transform.position;
+
         discObj.transform.localPosition = Vector3.zero;
         discObj.transform.localEulerAngles = Vector3.zero;
+        
         this.cameraFollow.SetFollow(false);
     }  
     public void Throw(){
