@@ -11,6 +11,7 @@ public class DiscThrower : MonoBehaviour
     [SerializeField] private float curl;
     [SerializeField] private float throwStrength;
 
+    public Disc Disc => this.discObj;
     private void Start(){
         //this.Init()    
     }

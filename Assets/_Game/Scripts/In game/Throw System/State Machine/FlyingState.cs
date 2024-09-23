@@ -5,6 +5,7 @@ using DL.StateMachine;
 
 public class FlyingState : StateBehaviour
 {
+    private float cd;
     public override void OnStateEnter(StateController stateController)
     {
         var throwController = stateController as ThrowStateController;
@@ -15,6 +16,7 @@ public class FlyingState : StateBehaviour
 
     public override void OnStateExit(StateController stateController)
     {
+        
     }
 
     public override void OnStateFixedUpdate(StateController stateController)
@@ -23,5 +25,17 @@ public class FlyingState : StateBehaviour
 
     public override void OnStateUpdate(StateController stateController)
     {
+        var throwController = stateController as ThrowStateController;
+        var disc = throwController.Thrower.Disc;
+        var discSpd = disc.GetComponent<Rigidbody>().velocity.magnitude;
+        if(Mathf.Abs(discSpd) < 0.01f){
+            cd += Time.deltaTime;
+            if(cd > 2){
+                throwController.ChangeState("After Throw");
+            }
+        }
+        else{
+            cd = 0;
+        }
     }
 }
