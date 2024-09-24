@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public static class VectorUtils
 {
@@ -67,6 +68,21 @@ public static class VectorUtils
     }
 
     public static Vector3 CircularInterpolate(Vector3 from, Vector3 to, Vector3 linePoint, Vector3 lineDir, float value){
+        var centerToFrom = from - linePoint;
+        var lineDirLength = centerToFrom.magnitude * Mathf.Abs(Mathf.Cos(Vector3.Angle(centerToFrom, lineDir)));
+        Vector3 cutPoint = linePoint + lineDirLength * lineDir.normalized;
+        Vector3 a = from - cutPoint;
+        var centerToTo = to - linePoint;
+        Vector3 b = linePoint + centerToTo.normalized * lineDirLength / Mathf.Abs(Mathf.Sin(Vector3.Angle(lineDir, centerToTo))) - cutPoint;
+
+        var angle = Mathf.Lerp(0, Vector3.Angle(a, b), value);
+        
+        var cross = Vector3.Cross(a, b).normalized;
+        var dot = Vector3.Dot(cross, lineDir.normalized);
+        if(dot < 0) angle = -angle;
+
+        return RotatePointAround(from, linePoint, lineDir, angle);
+
         return Vector3.zero;
     }
 
