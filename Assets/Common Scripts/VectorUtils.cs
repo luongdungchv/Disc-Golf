@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -56,24 +57,43 @@ public static class VectorUtils
                            y: y == null ? vector2.y : (float)y);
     }
 
-    public static Vector2 ToVectorXZ(this Vector3 vector3)
+    public static Vector2 XZ(this Vector3 vector3)
     {
         return new Vector2(vector3.x, vector3.z);
     }
+    public static Vector2 XY(this Vector3 vector3)
+    {
+        return new Vector2(vector3.x, vector3.y);
+    }
+    public static Vector2 YX(this Vector3 vector3)
+    {
+        return new Vector2(vector3.y, vector3.x);
+    }
+    public static Vector2 YZ(this Vector3 vector3)
+    {
+        return new Vector2(vector3.y, vector3.z);
+    }
+    public static Vector2 ZX(this Vector3 vector3)
+    {
+        return new Vector2(vector3.z, vector3.x);
+    }
+    public static Vector2 ZY(this Vector3 vector3)
+    {
+        return new Vector2(vector3.z, vector3.y);
+    }
+    
     
         
-    public static Vector3 ToVectorXZ(this Vector2 vector2)
-    {
-        return new Vector3(vector2.x, 0, vector2.y);
-    }
 
     public static Vector3 CircularInterpolate(Vector3 from, Vector3 to, Vector3 linePoint, Vector3 lineDir, float value){
         var centerToFrom = from - linePoint;
-        var lineDirLength = centerToFrom.magnitude * Mathf.Abs(Mathf.Cos(Vector3.Angle(centerToFrom, lineDir)));
+        var angleFrom = Vector3.Angle(centerToFrom, lineDir) * Mathf.Deg2Rad;
+        var lineDirLength = centerToFrom.magnitude * Mathf.Abs(Mathf.Cos(angleFrom));
         Vector3 cutPoint = linePoint + lineDirLength * lineDir.normalized;
         Vector3 a = from - cutPoint;
         var centerToTo = to - linePoint;
-        Vector3 b = linePoint + centerToTo.normalized * lineDirLength / Mathf.Abs(Mathf.Sin(Vector3.Angle(lineDir, centerToTo))) - cutPoint;
+        float angleTo = Vector3.Angle(lineDir, centerToTo) * Mathf.Deg2Rad;
+        Vector3 b = linePoint + centerToTo.normalized * lineDirLength / Mathf.Abs(Mathf.Cos(angleTo)) - cutPoint;
 
         var angle = Mathf.Lerp(0, Vector3.Angle(a, b), value);
         
@@ -81,9 +101,11 @@ public static class VectorUtils
         var dot = Vector3.Dot(cross, lineDir.normalized);
         if(dot < 0) angle = -angle;
 
-        return RotatePointAround(from, linePoint, lineDir, angle);
-
-        return Vector3.zero;
+        from += from.normalized * Mathf.Lerp(0, centerToTo.magnitude * Mathf.Abs(Mathf.Sin(angleTo)) - a.magnitude, value);
+        var rotated = RotatePointAround(from, linePoint, lineDir, angle);
+        var diff = centerToTo.magnitude * Mathf.Abs(Mathf.Cos(angleTo)) - lineDirLength;
+        rotated += lineDir.normalized * Mathf.Lerp(0, diff, value);
+        return rotated;
     }
 
     public static Vector3 RotatePointAround(Vector3 point, Vector3 linePoint, Vector3 lineDir, float angle){
