@@ -8,7 +8,8 @@ public class ThrowStateController : StateController
 {
     [SerializeField] private DiscThrower thrower;
     [SerializeField] private DiscAimer aimer;
-    [SerializeField] private GameObject uiPreThrow;
+    [SerializeField] private GameObject uiPreThrow, uiAfterThrow;
+    [SerializeField] private CameraFollow cameraFollow;
 
     [SerializeField] private UIBender uiBender;
 
@@ -22,7 +23,20 @@ public class ThrowStateController : StateController
         this.ChangeState("Flying");
     }
 
+    private void ThrowAgain(){
+        LevelManager.Instance.IncreaseThrow();
+        this.ChangeState("Pre Throw");
+    }
+    private void MoveToTie(){        
+        var newPos = Thrower.Disc.transform.position + Vector3.up;
+        Thrower.transform.position = newPos;
+        Aimer.transform.position = newPos;
+        LevelManager.Instance.IncreaseThrow();
+        this.ChangeState("Pre Throw");
+    }
+
     public DiscThrower Thrower => this.thrower;
     public DiscAimer Aimer => this.aimer;
     public GameObject UIPreThrow => this.uiPreThrow;
+    public CameraFollow CameraFollow => this.cameraFollow;
 }

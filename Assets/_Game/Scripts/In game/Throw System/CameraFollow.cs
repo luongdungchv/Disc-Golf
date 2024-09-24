@@ -1,21 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    [SerializeField] private Disc target;
+    [SerializeField] private Disc disc;
     [SerializeField] private float followMoveSpd, followAngularSpd;
 
     private bool isFollowing;
 
-    private void LateUpdate(){
-        if(!isFollowing) return;
-        var pos = target.CamFollowPosition;
+    public void Follow(){
+        //if(!isFollowing) return;
+        var pos = disc.CamFollowPosition;
         transform.position = Vector3.Lerp(transform.position, pos, Time.deltaTime * this.followMoveSpd);
-        var targetRotation = Quaternion.LookRotation(target.transform.position - transform.position, Vector3.up);
+        var targetRotation = Quaternion.LookRotation(disc.transform.position - transform.position, Vector3.up);
         transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, followAngularSpd * Time.deltaTime);
         //transform.LookAt(target.transform, Vector3.up);
+    }
+
+    public void AdjustLookatTarget(Vector3 targetPos, Quaternion targetRot){
+        transform.SetPositionAndRotation(Vector3.Lerp(transform.position, targetPos, Time.deltaTime * this.followMoveSpd), Quaternion.RotateTowards(transform.rotation, targetRot, followAngularSpd * Time.deltaTime));
     }
 
     public void SetFollow(bool state){
@@ -23,6 +28,6 @@ public class CameraFollow : MonoBehaviour
     }
 
     public void SetTarget(Disc target){
-        this.target = target;
+        this.disc = target;
     }
 }

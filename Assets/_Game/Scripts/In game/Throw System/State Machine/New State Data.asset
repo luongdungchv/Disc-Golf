@@ -35,7 +35,8 @@ MonoBehaviour:
       height: 69
   - name: After Throw
     index: 2
-    scriptAssetList: []
+    scriptAssetList:
+    - {fileID: 11500000, guid: b86a7c875897897498a9869d585f7052, type: 3}
     positionInGraph:
       serializedVersion: 2
       x: 2790

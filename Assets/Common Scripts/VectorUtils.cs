@@ -65,4 +65,16 @@ public static class VectorUtils
     {
         return new Vector3(vector2.x, 0, vector2.y);
     }
+
+    public static Vector3 CircularInterpolate(Vector3 from, Vector3 to, Vector3 linePoint, Vector3 lineDir, float value){
+        return Vector3.zero;
+    }
+
+    public static Vector3 RotatePointAround(Vector3 point, Vector3 linePoint, Vector3 lineDir, float angle){
+        lineDir.Normalize();
+        Vector3 translatedPoint = point - linePoint;
+        Quaternion rotation = Quaternion.AngleAxis(angle, lineDir);
+        Vector3 rotatedPoint = rotation * translatedPoint;
+        return rotatedPoint + linePoint;
+    }
 }

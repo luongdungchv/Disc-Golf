@@ -19,8 +19,9 @@ public class FlyingState : StateBehaviour
         
     }
 
-    public override void OnStateFixedUpdate(StateController stateController)
+    public override void OnStateLateUpdate(StateController stateController)
     {
+        (stateController as ThrowStateController).CameraFollow.Follow();
     }
 
     public override void OnStateUpdate(StateController stateController)

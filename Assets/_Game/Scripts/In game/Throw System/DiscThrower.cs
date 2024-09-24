@@ -14,6 +14,7 @@ public class DiscThrower : MonoBehaviour
     public Disc Disc => this.discObj;
     private void Start(){
         //this.Init()    
+        Debug.Log(Vector3.Cross(Vector3.right, Vector3.forward));
     }
 
     public void Init(){
