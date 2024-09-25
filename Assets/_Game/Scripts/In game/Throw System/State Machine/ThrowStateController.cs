@@ -23,11 +23,11 @@ public class ThrowStateController : StateController
         this.ChangeState("Flying");
     }
 
-    private void ThrowAgain(){
+    public void ThrowAgain(){
         LevelManager.Instance.IncreaseThrow();
         this.ChangeState("Pre Throw");
     }
-    private void MoveToTie(){        
+    public void MoveToTie(){        
         var newPos = Thrower.Disc.transform.position + Vector3.up;
         Thrower.transform.position = newPos;
         Aimer.transform.position = newPos;
@@ -38,5 +38,6 @@ public class ThrowStateController : StateController
     public DiscThrower Thrower => this.thrower;
     public DiscAimer Aimer => this.aimer;
     public GameObject UIPreThrow => this.uiPreThrow;
+    public GameObject UIAfterThrow => this.uiAfterThrow;
     public CameraFollow CameraFollow => this.cameraFollow;
 }

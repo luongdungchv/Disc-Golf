@@ -82,7 +82,9 @@ public static class VectorUtils
         return new Vector2(vector3.z, vector3.y);
     }
     
-    
+    public static Vector3 Multiply(Vector3 a, Vector3 b){
+        return new Vector3(a.x * b.x, a.y * b.y, a.x * b.z);
+    }
         
 
     public static Vector3 CircularInterpolate(Vector3 from, Vector3 to, Vector3 linePoint, Vector3 lineDir, float value){
