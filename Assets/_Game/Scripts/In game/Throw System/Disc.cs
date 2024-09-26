@@ -21,7 +21,7 @@ public class Disc : MonoBehaviour
     public Vector3 CamFollowPosition => transform.position - this.currentVel.normalized * 2.75f + Vector3.up * 1f;
     public Vector3 VelocityBeforeHit => currentVel;
 
-    public void StartFlying(Vector3 direction, float curlDir, float throwStrength = 1){
+    public void StartDriveFlying(Vector3 direction, float curlDir, float throwStrength = 1){
         Debug.Log(throwStrength);
         body.velocity = direction * initialSpd * throwStrength;
         currentAngularVel = curlDir * initialAngularSpd * transform.up;
@@ -30,6 +30,13 @@ public class Disc : MonoBehaviour
         this.curlDir = curlDir;
 
         this.flyingRightDir = transform.right;
+    }
+    public void StartPuttFlying(Vector3 velocity){
+        this.transform.SetParent(null);
+        body.velocity = velocity;
+        body.useGravity = true;
+        this.isFlying = true;
+        this.curlDir = 0;
     }
 
     public void StopFlying(){
@@ -60,7 +67,6 @@ public class Disc : MonoBehaviour
     }
 
     private void OnCollisionEnter(Collision other) {
-        Debug.Log(other.gameObject.name);
         if(!this.isFlying) return;
         this.body.drag = dragAfterHit;
         hit = true;

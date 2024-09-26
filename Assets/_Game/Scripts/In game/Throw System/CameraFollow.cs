@@ -15,6 +15,12 @@ public class CameraFollow : MonoBehaviour
         Instance = this;
     }
 
+    [Sirenix.OdinInspector.Button]
+    private void Test(){
+        Debug.Log(Physics.Raycast(transform.position, transform.forward, 1000));
+    }
+
+
     public void Follow(){
         //if(!isFollowing) return;
         var pos = disc.CamFollowPosition;

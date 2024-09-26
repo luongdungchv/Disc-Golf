@@ -100,7 +100,7 @@ namespace DL.Utils
         public static float GetDistanceToPlane(Vector3 point, Vector3 planeNormal, Vector3 planePoint){
             var dirToPoint = point - planePoint;
             if(Vector3.Dot(dirToPoint, planeNormal) < 0) planeNormal *= -1;
-            var distToPlane = dirToPoint.magnitude * Mathf.Cos(Vector3.Angle(dirToPoint, planeNormal));
+            var distToPlane = dirToPoint.magnitude * Mathf.Cos(Vector3.Angle(dirToPoint, planeNormal) * Mathf.Deg2Rad);
             return distToPlane;
         }
         public static Vector3 GetProjectionOnPlane(Vector3 point, Vector3 planeNormal, Vector3 planePoint){
@@ -110,8 +110,8 @@ namespace DL.Utils
         public static Vector3 GetIntersectionWithPlane(Vector3 point, Vector3 dir, Vector3 planeNormal, Vector3 planePoint){
             dir.Normalize();
             var distToPlane = GetDistanceToPlane(point, planeNormal, planePoint);
-            return point + dir * (distToPlane / Mathf.Abs(Mathf.Cos(Vector3.Angle(planeNormal, dir))));
-            
+            Debug.Log(Vector3.Angle(planeNormal, dir));
+            return point + dir * (distToPlane / Mathf.Abs(Mathf.Cos(Vector3.Angle(planeNormal, dir) * Mathf.Deg2Rad)));       
         }
     }
 }

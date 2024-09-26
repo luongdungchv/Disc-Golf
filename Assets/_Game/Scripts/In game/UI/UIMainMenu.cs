@@ -18,7 +18,7 @@ public class UIMainMenu : MonoBehaviour
                 localPhysicsMode = LocalPhysicsMode.Physics3D
             };
             Camera.main.gameObject.SetActive(false);
-            SceneManager.LoadSceneAsync("Game_LakeSide", loadParams).completed += (op) =>
+            SceneManager.LoadSceneAsync("Game_LakeSide", LoadSceneMode.Additive).completed += (op) =>
             {
                 SceneManager.SetActiveScene(SceneManager.GetSceneAt(SceneManager.sceneCount - 1));
                 this.gameObject.SetActive(false);

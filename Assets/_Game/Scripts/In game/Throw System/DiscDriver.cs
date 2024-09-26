@@ -11,7 +11,7 @@ public class DiscDriver : DiscThrower
     public override void Throw()
     {
         this.discObj.transform.SetParent(null);
-        this.discObj.StartFlying(aimer.Direction, this.curl, this.throwStrength);
+        this.discObj.StartDriveFlying(aimer.Direction, this.curl, this.throwStrength);
         this.aimer.DetachCamera();
         this.cameraFollow.SetFollow(true);
     }
