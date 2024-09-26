@@ -6,21 +6,25 @@ using Unity.VisualScripting;
 
 public class ThrowStateController : StateController
 {
-    [SerializeField] private DiscThrower thrower;
+    public static ThrowStateController Instance;
+    [SerializeField] private DiscThrower driver, putter;
     [SerializeField] private DiscAimer aimer;
-    [SerializeField] private GameObject uiPreThrow, uiAfterThrow;
-    [SerializeField] private CameraFollow cameraFollow;
+    private CameraFollow cameraFollow => CameraFollow.Instance;
+    private UIManager uiManager => UIManager.Instance;
 
-    [SerializeField] private UIBender uiBender;
+    private DiscThrower currentThrower;
 
     private void Start(){
-        uiBender.RegisterOnDragCallback(this.thrower.UIBendDragCallback);
-        uiBender.RegisterOnDropCallback(this.UIBendDropCallback);
+        uiManager.UIAfterThrow.RegisterMoveToTieClick(this.MoveToTie);
+        uiManager.UIAfterThrow.RegisterThrowAgainClick(this.ThrowAgain);
+        uiManager.UISessionComplete.RegisterNextHoleClick(this.NextHole);
+        uiManager.UIDirectionAdjuster.SetAimer(this.aimer);
     }
 
-    private void UIBendDropCallback(){
-        
-        this.ChangeState("Flying");
+    protected override void Awake(){
+        this.SetThrowerDrive();
+        base.Awake();
+        Instance = this;
     }
 
     public void ThrowAgain(){
@@ -33,11 +37,23 @@ public class ThrowStateController : StateController
         Aimer.transform.position = newPos;
         LevelManager.Instance.IncreaseThrow();
         this.ChangeState("Pre Throw");
+        this.aimer.transform.LookAt(LevelManager.Instance.CurrentSessionInfo.throwTarget.transform.position);
     }
 
-    public DiscThrower Thrower => this.thrower;
+    public void NextHole(){
+        var levelManager = LevelManager.Instance;
+        levelManager.CurrentSessionInfo.throwTarget.gameObject.SetActive(false);
+        levelManager.NextSession();
+        var startPos = levelManager.CurrentSessionInfo.startInfo.position;
+        Thrower.transform.position = startPos;
+        Aimer.transform.position = startPos;
+        this.ChangeState("Pre Throw");
+    }
+
+    public void SetThrowerDrive() => this.currentThrower = this.driver;
+    public void SetThrowerPutt() => this.currentThrower = this.putter;
+
+    public DiscThrower Thrower => this.currentThrower;
     public DiscAimer Aimer => this.aimer;
-    public GameObject UIPreThrow => this.uiPreThrow;
-    public GameObject UIAfterThrow => this.uiAfterThrow;
-    public CameraFollow CameraFollow => this.cameraFollow;
+
 }

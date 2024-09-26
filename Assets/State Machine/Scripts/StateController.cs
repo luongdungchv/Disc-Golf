@@ -10,7 +10,7 @@ namespace DL.StateMachine
         [SerializeField] private StateMachine fsm;
         [SerializeField] private StateMachineDataSO stateData;
 
-        private void Awake()
+        protected virtual void Awake()
         {
 #if UNITY_EDITOR
             stateData.stateList.ForEach(x => x.GenerateType());

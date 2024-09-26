@@ -8,7 +8,9 @@ public class PreThrowState : StateBehaviour
     public override void OnStateEnter(StateController stateController)
     {
         var throwController = stateController as ThrowStateController;
-        throwController.UIPreThrow.SetActive(true);
+        UIManager.Instance.UIPreThrow.gameObject.SetActive(true);
+        UIManager.Instance.UISessionComplete.gameObject.SetActive(false);
+        Debug.Log(throwController.Thrower);
         throwController.Thrower.Init();
     }
 

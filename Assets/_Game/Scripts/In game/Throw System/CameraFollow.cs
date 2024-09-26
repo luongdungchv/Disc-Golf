@@ -5,10 +5,15 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
+    public static CameraFollow Instance;
     [SerializeField] private Disc disc;
     [SerializeField] private float followMoveSpd, followAngularSpd;
 
     private bool isFollowing;
+
+    private void Awake() {
+        Instance = this;
+    }
 
     public void Follow(){
         //if(!isFollowing) return;
@@ -36,7 +41,6 @@ public class CameraFollow : MonoBehaviour
             x: Mathf.Lerp(currentAngleX, targetAngleX, Time.deltaTime),
             y: Mathf.Lerp(currentAngleY, targetAngleY, Time.deltaTime)   
         );
-        Debug.Log((currentAngleY, targetAngleY));
         //transform.eulerAngles = transform.eulerAngles.Set(x: Mathf.Lerp(currentAngleX, targetRot, Time.deltaTime));
     }
 

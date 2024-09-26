@@ -60,6 +60,7 @@ public class Disc : MonoBehaviour
     }
 
     private void OnCollisionEnter(Collision other) {
+        Debug.Log(other.gameObject.name);
         if(!this.isFlying) return;
         this.body.drag = dragAfterHit;
         hit = true;

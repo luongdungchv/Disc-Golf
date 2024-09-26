@@ -9,7 +9,7 @@ public class FlyingState : StateBehaviour
     public override void OnStateEnter(StateController stateController)
     {
         var throwController = stateController as ThrowStateController;
-        throwController.UIPreThrow.gameObject.SetActive(false);
+        UIManager.Instance.UIPreThrow.gameObject.SetActive(false);
         Debug.Log("drop");
         throwController.Thrower.Throw();
     }
@@ -21,7 +21,7 @@ public class FlyingState : StateBehaviour
 
     public override void OnStateLateUpdate(StateController stateController)
     {
-        (stateController as ThrowStateController).CameraFollow.Follow();
+        CameraFollow.Instance.Follow();
     }
 
     public override void OnStateUpdate(StateController stateController)

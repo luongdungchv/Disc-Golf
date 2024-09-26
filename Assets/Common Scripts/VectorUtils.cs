@@ -117,4 +117,9 @@ public static class VectorUtils
         Vector3 rotatedPoint = rotation * translatedPoint;
         return rotatedPoint + linePoint;
     }
+
+    public static void Test<T>() where T: DiscThrower{
+        var type = typeof(T);
+        Debug.Log(type);
+    }
 }

@@ -9,7 +9,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private List<LevelSession> sessionList;
     private int currentSession;
     private int currentThrow;
-    private LevelSession currentSessionInfo;
+    [SerializeField] private LevelSession currentSessionInfo;
 
     public LevelSession CurrentSessionInfo => this.currentSessionInfo;
 
@@ -26,7 +26,9 @@ public class LevelManager : MonoBehaviour
 
     public void NextSession(){
         if(currentSession == sessionList.Count - 1) return;
+        this.currentSessionInfo.throwTarget.gameObject.SetActive(false);
         StartSession(currentSession + 1);
+        this.currentSessionInfo.throwTarget.gameObject.SetActive(true);
     }
 
     public void IncreaseThrow() => this.currentThrow++;

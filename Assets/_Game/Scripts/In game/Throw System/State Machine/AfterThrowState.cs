@@ -17,7 +17,7 @@ public class AfterThrowState : DL.StateMachine.StateBehaviour
         discPos = throwController.Thrower.Disc.transform.position;
         var dirToTarget = (targetPos - discPos);
 
-        targetCamPos = discPos - dirToTarget.Set(y: 0).normalized * 4f + Vector3.up * 2;
+        targetCamPos = discPos - dirToTarget.Set(y: 0).normalized * 4f + Vector3.up * 1.5f;
         var camDirToTarget = targetPos - targetCamPos;
         targetXAngle = Mathf.Asin(Mathf.Abs(camDirToTarget.y) / camDirToTarget.magnitude) * -camDirToTarget.y / Mathf.Abs(camDirToTarget.y) * Mathf.Rad2Deg;
         targetYAngle = Mathf.Atan2(camDirToTarget.x, camDirToTarget.z) * Mathf.Rad2Deg;
@@ -26,7 +26,7 @@ public class AfterThrowState : DL.StateMachine.StateBehaviour
     public override void OnStateExit(StateController stateController)
     {
         var throwController = stateController as ThrowStateController;
-        throwController.UIAfterThrow.SetActive(false);
+        UIManager.Instance.UIAfterThrow.gameObject.SetActive(false);
     }
 
     public override void OnStateFixedUpdate(StateController stateController)
@@ -41,12 +41,12 @@ public class AfterThrowState : DL.StateMachine.StateBehaviour
         //throwController.CameraFollow.AdjustLookatTarget(targetCamPos, targetXAngle, targetYAngle);
         if (throwTarget.IsInBasket(throwController.Thrower.Disc))
         {
-
+            UIManager.Instance.UISessionComplete.gameObject.SetActive(true);
         }
         else
         {
-            throwController.CameraFollow.AdjustLookatTarget(targetCamPos, targetXAngle, targetYAngle);
-            throwController.UIAfterThrow.SetActive(true);
+            CameraFollow.Instance.AdjustLookatTarget(targetCamPos, targetXAngle, targetYAngle);
+            UIManager.Instance.UIAfterThrow.gameObject.SetActive(true);
         }
     }
 }

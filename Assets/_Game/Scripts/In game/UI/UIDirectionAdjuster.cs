@@ -12,4 +12,8 @@ public class UIDirectionAdjuster : MonoBehaviour, IDragHandler
         var delta = eventData.delta;
         target.Rotate(delta);
     }
+
+    public void SetAimer(DiscAimer aimer){
+        this.target = aimer;
+    }
 }
