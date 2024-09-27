@@ -15,6 +15,7 @@ public class LevelManager : MonoBehaviour
 
     private void Awake(){
         Instance = this;
+        UIManager.Instance.UIDiscSelector.ShowUI();
         this.StartSession(0);
     }
 

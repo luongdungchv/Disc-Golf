@@ -15,7 +15,7 @@ public class DiscPutter : DiscThrower
 
     private void Start()
     {
-        oldDiscPos = this.discObj.transform.position;
+        oldDiscPos = this.Disc.transform.position;
     }
 
     [Sirenix.OdinInspector.Button]
@@ -44,10 +44,10 @@ public class DiscPutter : DiscThrower
                 var dragPoint = MathUtils.GetIntersectionWithPlane(
                     ray.origin,
                     ray.direction,
-                    this.discObj.transform.up,
+                    this.Disc.transform.up,
                     ThrowStateController.Instance.Aimer.transform.position
                 );
-                this.discObj.transform.position = dragPoint;
+                this.Disc.transform.position = dragPoint;
                 //dummyObj.transform.position = dragPoint;
                 Debug.Log(dragPoint);
             }
@@ -57,19 +57,19 @@ public class DiscPutter : DiscThrower
             if (dragging)
             {
                 dragging = false;
-                var vel = (this.discObj.transform.position - oldDiscPos) / Time.deltaTime;
-                this.discObj.StartPuttFlying(vel);
+                var vel = (this.Disc.transform.position - oldDiscPos) / Time.deltaTime;
+                this.Disc.StartPuttFlying(vel);
             }
         }
-        var distToOrigin = Vector3.Distance(this.discObj.transform.position, ThrowStateController.Instance.Aimer.transform.position);
+        var distToOrigin = Vector3.Distance(this.Disc.transform.position, ThrowStateController.Instance.Aimer.transform.position);
         if (dragging && distToOrigin >= this.releaseDist)
         {
-            var vel = (this.discObj.transform.position - oldDiscPos) / Time.deltaTime * spdMultiplier;
+            var vel = (this.Disc.transform.position - oldDiscPos) / Time.deltaTime * spdMultiplier;
             Debug.Log(vel.magnitude);
-            this.discObj.StartPuttFlying(vel);
+            this.Disc.StartPuttFlying(vel);
             dragging = false;
             
         }
-        this.oldDiscPos = this.discObj.transform.position;
+        this.oldDiscPos = this.Disc.transform.position;
     }
 }

@@ -5,26 +5,25 @@ using UnityEngine;
 
 public class DiscThrower : MonoBehaviour
 {
-    [SerializeField] protected Disc discObj;
     [SerializeField] protected DiscAimer aimer;
 
     [SerializeField] protected float curl;
     [SerializeField] protected float throwStrength;
     protected CameraFollow cameraFollow => CameraFollow.Instance;
 
-    public Disc Disc => this.discObj;
+    public Disc Disc => DiscSelector.Instance.SelectedDisc;
     
 
     public void Init(){
-        this.discObj.StopFlying();
+        this.Disc.StopFlying();
         this.aimer.AttachCamera();
 
-        discObj.transform.SetParent(aimer.transform);
+        Disc.transform.SetParent(aimer.transform);
 
         aimer.transform.position = this.transform.position;
 
-        discObj.transform.localPosition = Vector3.zero;
-        discObj.transform.localEulerAngles = Vector3.zero;
+        Disc.transform.localPosition = Vector3.zero;
+        Disc.transform.localEulerAngles = Vector3.zero;
         
         this.cameraFollow.SetFollow(false);
     }  

@@ -10,15 +10,15 @@ public class DiscDriver : DiscThrower
     }
     public override void Throw()
     {
-        this.discObj.transform.SetParent(null);
-        this.discObj.StartDriveFlying(aimer.Direction, this.curl, this.throwStrength);
+        this.Disc.transform.SetParent(null);
+        this.Disc.StartDriveFlying(aimer.Direction, this.curl, this.throwStrength);
         this.aimer.DetachCamera();
         this.cameraFollow.SetFollow(true);
     }
 
     private void UIBendDragCallback(float dragLength, float hValue){
         this.curl = -hValue / dragLength;
-        this.discObj.Bend(Mathf.Asin(hValue / dragLength) * Mathf.Rad2Deg);
+        this.Disc.Bend(Mathf.Asin(hValue / dragLength) * Mathf.Rad2Deg);
         this.throwStrength = dragLength / 265;
     }
     private void UIBendDropCallback(){
