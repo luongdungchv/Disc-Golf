@@ -14,4 +14,6 @@ public class UIManager : MonoBehaviour
     public UIMainMenu UIMainMenu;
     public UIDirectionAdjuster UIDirectionAdjuster;
     public UIDiscSelector UIDiscSelector;
+
+    public UIThrowSelector UIThrowSelector;
 }

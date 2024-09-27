@@ -24,6 +24,7 @@ public class DiscSelector : Sirenix.OdinInspector.SerializedMonoBehaviour
         discList.ForEach(x => x.Value.gameObject.SetActive(false));
         this.selectedDisc = discList[0];
         this.selectedDisc.gameObject.SetActive(true);
+        this.SetThrowerDrive();
     }
 
 
