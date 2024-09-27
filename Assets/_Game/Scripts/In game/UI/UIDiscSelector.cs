@@ -17,7 +17,7 @@ public class UIDiscSelector : MonoBehaviour
     private void Awake(){
         //this.openBtn.onClick.AddListener(this.Show);
         this.panel.SetActive(false);
-        this.gameObject.SetActive(false);
+        //this.gameObject.SetActive(false);
     }
 
     public void ShowPanel()

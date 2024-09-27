@@ -11,7 +11,8 @@ public class FlyingState : StateBehaviour
         var throwController = stateController as ThrowStateController;
         UIManager.Instance.UIPreThrow.gameObject.SetActive(false);
         Debug.Log("drop");
-        throwController.Thrower.Throw();
+        // throwController.Thrower.Throw();
+        DiscSelector.Instance.SelectedThrower.Throw();
     }
 
     public override void OnStateExit(StateController stateController)
@@ -21,6 +22,9 @@ public class FlyingState : StateBehaviour
 
     public override void OnStateLateUpdate(StateController stateController)
     {
+        if(DiscSelector.Instance.SelectedThrower.GetType() == typeof(DiscPutter)){
+            return;
+        }
         CameraFollow.Instance.Follow();
     }
 

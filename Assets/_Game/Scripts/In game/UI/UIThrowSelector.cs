@@ -14,7 +14,7 @@ public class UIThrowSelector : MonoBehaviour
         openBtn.onClick.AddListener(TogglePanel);
         this.btnDriveMode.onClick.AddListener(this.DriveModeButtonClick);
         this.btnPuttMode.onClick.AddListener(this.PuttModeButtonClick);
-        this.gameObject.SetActive(false);
+        //this.gameObject.SetActive(false);
     }
 
     public void ShowUI(){

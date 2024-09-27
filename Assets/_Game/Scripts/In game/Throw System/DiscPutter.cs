@@ -64,12 +64,21 @@ public class DiscPutter : DiscThrower
         var distToOrigin = Vector3.Distance(this.Disc.transform.position, ThrowStateController.Instance.Aimer.transform.position);
         if (dragging && distToOrigin >= this.releaseDist)
         {
-            var vel = (this.Disc.transform.position - oldDiscPos) / Time.deltaTime * spdMultiplier;
-            Debug.Log(vel.magnitude);
-            this.Disc.StartPuttFlying(vel);
-            dragging = false;
-            
+            // var vel = (this.Disc.transform.position - oldDiscPos) / Time.deltaTime * spdMultiplier;
+            // Debug.Log(vel.magnitude);
+            // this.Disc.StartPuttFlying(vel);
+            // dragging = false;
+            ThrowStateController.Instance.ChangeState("Flying");
+
         }
         this.oldDiscPos = this.Disc.transform.position;
+    }
+
+    public override void Throw()
+    {
+        var vel = (this.Disc.transform.position - oldDiscPos) / Time.deltaTime * spdMultiplier;
+        Debug.Log(vel.magnitude);
+        this.Disc.StartPuttFlying(vel);
+        dragging = false;
     }
 }

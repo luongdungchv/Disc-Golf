@@ -45,7 +45,8 @@ public class AfterThrowState : DL.StateMachine.StateBehaviour
         }
         else
         {
-            CameraFollow.Instance.AdjustLookatTarget(targetCamPos, targetXAngle, targetYAngle);
+            if(DiscSelector.Instance.SelectedThrower is DiscDriver) 
+                CameraFollow.Instance.AdjustLookatTarget(targetCamPos, targetXAngle, targetYAngle);
             UIManager.Instance.UIAfterThrow.gameObject.SetActive(true);
         }
     }
