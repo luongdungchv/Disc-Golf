@@ -33,10 +33,21 @@ public class ThrowStateController : StateController
     }
     public void MoveToTie(){        
         var newPos = Thrower.Disc.transform.position + Vector3.up;
+
+        Debug.Log(Singleton<WaterBox>.Instance.IsInsideWater(Thrower.Disc.GetComponent<Collider>()));
+
+        if(Singleton<WaterBox>.Instance.IsInsideWater(Thrower.Disc.GetComponent<Collider>())){
+            Debug.Log("out of bound");
+            var point = Singleton<WaterBox>.Instance.GetClosestTerrainPoint(Thrower.Disc.transform.position);
+            newPos = point + Vector3.up;
+        }
         Thrower.transform.position = newPos;
         Aimer.transform.position = newPos;
+
         LevelManager.Instance.IncreaseThrow();
+
         this.ChangeState("Pre Throw");
+
         this.aimer.transform.LookAt(LevelManager.Instance.CurrentSessionInfo.throwTarget.transform.position);
     }
 

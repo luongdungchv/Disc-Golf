@@ -21,6 +21,8 @@ public class AfterThrowState : DL.StateMachine.StateBehaviour
         var camDirToTarget = targetPos - targetCamPos;
         targetXAngle = Mathf.Asin(Mathf.Abs(camDirToTarget.y) / camDirToTarget.magnitude) * -camDirToTarget.y / Mathf.Abs(camDirToTarget.y) * Mathf.Rad2Deg;
         targetYAngle = Mathf.Atan2(camDirToTarget.x, camDirToTarget.z) * Mathf.Rad2Deg;
+
+       
     }
 
     public override void OnStateExit(StateController stateController)

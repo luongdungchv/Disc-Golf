@@ -10,6 +10,7 @@ public class Disc : MonoBehaviour
 
     private bool isFlying;
     private bool hit;
+    private bool isOutOfBound;
     private float curlDir;
 
     private Vector3 flyingRightDir;
@@ -49,6 +50,11 @@ public class Disc : MonoBehaviour
         this.body.drag = 0;
     }
 
+    public void ResetState(){
+        transform.localPosition = Vector3.zero;
+        transform.localEulerAngles = Vector3.zero;
+    }
+
     private void Update(){
         if(this.isFlying && !hit){
             var speed = this.body.velocity.magnitude;
@@ -70,6 +76,11 @@ public class Disc : MonoBehaviour
         if(!this.isFlying) return;
         this.body.drag = dragAfterHit;
         hit = true;
+    }
+
+    [Sirenix.OdinInspector.Button]
+    private void Test(){
+        Debug.Log(Singleton<WaterBox>.Instance.IsInsideWater(GetComponent<Collider>()));
     }
 
 

@@ -19,11 +19,10 @@ public class DiscThrower : MonoBehaviour
         this.aimer.AttachCamera();
 
         Disc.transform.SetParent(aimer.transform);
+        Disc.ResetState();
 
         aimer.transform.position = this.transform.position;
-
-        Disc.transform.localPosition = Vector3.zero;
-        Disc.transform.localEulerAngles = Vector3.zero;
+        var discCollider = DiscSelector.Instance.SelectedDisc.GetComponent<Collider>();
         
         this.cameraFollow.SetFollow(false);
     }  

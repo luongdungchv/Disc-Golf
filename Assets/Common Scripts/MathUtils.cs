@@ -113,5 +113,36 @@ namespace DL.Utils
             Debug.Log(Vector3.Angle(planeNormal, dir));
             return point + dir * (distToPlane / Mathf.Abs(Mathf.Cos(Vector3.Angle(planeNormal, dir) * Mathf.Deg2Rad)));       
         }
+
+        public static bool IsPointInsidePolygon(Vector2 point, List<Vector2> polygon){
+            for (int i = 1; i < polygon.Count; i++)
+            {
+                var vert = polygon[i];
+                var nextVert = polygon[i < polygon.Count ? i + 1 : 0];
+                var lastVert = polygon[i - 1];
+
+                var firstSegment = vert - lastVert;
+                var secondSegment = vert - nextVert;
+
+                var normalsFirstSegment = new List<Vector2>(){
+                    new Vector2(-firstSegment.y, firstSegment.x),
+                    new Vector2(firstSegment.y, -firstSegment.x),
+                };
+
+                var normalsSecondSegment = new List<Vector2>(){
+                    new Vector2(-secondSegment.y, secondSegment.x),
+                    new Vector2(secondSegment.y, -secondSegment.x),
+                };
+
+                var angle = Vector3.Angle(firstSegment, secondSegment);
+                foreach(var m in normalsFirstSegment){
+                    foreach(var n in normalsSecondSegment){
+
+                    }
+                }
+            }
+
+            return false;
+        }
     }
 }
