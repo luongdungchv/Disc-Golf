@@ -9,6 +9,7 @@ public class ThrowStateController : StateController
     public static ThrowStateController Instance;
     [SerializeField] private DiscThrower driver, putter;
     [SerializeField] private DiscAimer aimer;
+    [SerializeField] private float discMoveDist;
     private CameraFollow cameraFollow => CameraFollow.Instance;
     private UIManager uiManager => UIManager.Instance;
 
@@ -19,7 +20,9 @@ public class ThrowStateController : StateController
         uiManager.UIAfterThrow.RegisterThrowAgainClick(this.ThrowAgain);
         uiManager.UISessionComplete.RegisterNextHoleClick(this.NextHole);
         uiManager.UIDirectionAdjuster.SetAimer(this.aimer);
+        UIManager.Instance.UIMoveDisc.RegisterValueChangedCallback(this.MoveDiscHorizontally);
     }
+
 
     protected override void Awake(){
         this.SetThrowerDrive();
@@ -54,6 +57,13 @@ public class ThrowStateController : StateController
         this.aimer.transform.LookAt(LevelManager.Instance.CurrentSessionInfo.throwTarget.transform.position);
     }
 
+    private void MoveDiscHorizontally(float val){
+        val = val * 2 - 1;
+        var posX = val * this.discMoveDist;
+        DiscSelector.Instance.SelectedDisc.transform.localPosition = DiscSelector.Instance.SelectedDisc.transform.localPosition.Set(x: posX);
+        CameraFollow.Instance.transform.localPosition = CameraFollow.Instance.transform.localPosition.Set(x: posX);
+    }
+
     public void NextHole(){
         var levelManager = LevelManager.Instance;
         levelManager.CurrentSessionInfo.throwTarget.gameObject.SetActive(false);
@@ -63,6 +73,12 @@ public class ThrowStateController : StateController
         Aimer.transform.position = startPos;
         this.ChangeState("Pre Throw");
     }
+    
+    private void OnDestroy() {
+        this.uiManager.UIAfterThrow.RemoveCallbacks();
+        UIManager.Instance.UIMoveDisc.UnregisterValueChangedCallback(this.MoveDiscHorizontally);
+    }
+
 
     public void SetThrowerDrive() => this.currentThrower = this.driver;
     public void SetThrowerPutt() => this.currentThrower = this.putter;

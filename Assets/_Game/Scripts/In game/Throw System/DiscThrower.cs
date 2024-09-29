@@ -7,11 +7,12 @@ public class DiscThrower : MonoBehaviour
 {
     [SerializeField] protected DiscAimer aimer;
 
-    [SerializeField] protected float curl;
+    [SerializeField] protected float curl, discMoveDist;
     [SerializeField] protected float throwStrength;
     protected CameraFollow cameraFollow => CameraFollow.Instance;
 
     public Disc Disc => DiscSelector.Instance.SelectedDisc;
+
     
 
     public void Init(){
@@ -22,13 +23,14 @@ public class DiscThrower : MonoBehaviour
         Disc.ResetState();
 
         aimer.transform.position = this.transform.position;
-        var discCollider = DiscSelector.Instance.SelectedDisc.GetComponent<Collider>();
         
         this.cameraFollow.SetFollow(false);
     }  
     public virtual void Throw(){
         
     }
+
+    
 
     [Sirenix.OdinInspector.Button]
     private void Test(){
@@ -43,4 +45,5 @@ public class DiscThrower : MonoBehaviour
             this.Init();
         }
     }  
+    
 }

@@ -33,6 +33,14 @@ public class UIBender : MonoBehaviour, IDragHandler, IDropHandler, IPointerUpHan
     {
         this.onKnotDrop += callback;
     }
+    public void UnregisterOnDragCallback(UnityAction<float, float> callback)
+    {
+        this.onKnotDrag += callback;
+    }
+    public void UnregisterOnDropCallback(UnityAction callback)
+    {
+        this.onKnotDrop += callback;
+    }
 
     public void OnDrag(PointerEventData eventData)
     {

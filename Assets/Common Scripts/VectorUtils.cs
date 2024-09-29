@@ -50,6 +50,12 @@ public static class VectorUtils
         return vector3 + direction;
     }
 
+    public static void ForceSet(this Vector3 input, float? x = null, float? y = null, float? z = null){
+        if(x != null) input.x = (float)x;
+        if(y != null) input.y = (float)y;
+        if(z != null) input.z = (float)z;
+    }
+
 
     public static Vector2 Set(this Vector2 vector2, float? x = null, float? y = null)
     {

@@ -199,6 +199,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aimer: {fileID: 8893357310791771792}
   curl: 0
+  discMoveDist: 0
   throwStrength: 0
   mask:
     serializedVersion: 2
@@ -270,6 +271,7 @@ MonoBehaviour:
   driver: {fileID: 5718628366426268447}
   putter: {fileID: 3892733741021465565}
   aimer: {fileID: 8893357310791771792}
+  discMoveDist: 0.5
 --- !u!1 &7382861425187438648
 GameObject:
   m_ObjectHideFlags: 0
@@ -347,6 +349,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aimer: {fileID: 8893357310791771792}
   curl: 0
+  discMoveDist: 0
   throwStrength: 0
 --- !u!1 &8569286036394262422
 GameObject:

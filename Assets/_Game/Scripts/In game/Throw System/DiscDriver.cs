@@ -24,4 +24,9 @@ public class DiscDriver : DiscThrower
     private void UIBendDropCallback(){
         ThrowStateController.Instance.ChangeState("Flying");
     }
+
+    private void OnDestroy() {
+        UIManager.Instance.UIPreThrow.UIBender.UnregisterOnDragCallback(this.UIBendDragCallback);
+        UIManager.Instance.UIPreThrow.UIBender.UnregisterOnDropCallback(this.UIBendDropCallback);
+    }
 }
