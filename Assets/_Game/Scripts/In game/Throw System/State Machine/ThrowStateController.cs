@@ -36,7 +36,10 @@ public class ThrowStateController : StateController
 
         Debug.Log(Singleton<WaterBox>.Instance.IsInsideWater(Thrower.Disc.GetComponent<Collider>()));
 
-        if(Singleton<WaterBox>.Instance.IsInsideWater(Thrower.Disc.GetComponent<Collider>())){
+        if(
+            Singleton<WaterBox>.Instance.IsInsideWater(Thrower.Disc.GetComponent<Collider>()) ||
+            !Singleton<WorldBound>.Instance.IsInBound(Thrower.Disc.transform.position)
+        ){
             Debug.Log("out of bound");
             var point = Singleton<WaterBox>.Instance.GetClosestTerrainPoint(Thrower.Disc.transform.position);
             newPos = point + Vector3.up;
