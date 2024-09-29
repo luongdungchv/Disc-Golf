@@ -21,8 +21,9 @@ public class DiscDriver : DiscThrower
         this.Disc.Bend(Mathf.Asin(hValue / dragLength) * Mathf.Rad2Deg);
         this.throwStrength = dragLength / 265;
     }
-    private void UIBendDropCallback(){
-        ThrowStateController.Instance.ChangeState("Flying");
+    private void UIBendDropCallback(float length, bool canRelease){
+        if(canRelease) ThrowStateController.Instance.ChangeState("Flying");
+        else this.Disc.transform.localEulerAngles = Vector3.zero;
     }
 
     private void OnDestroy() {

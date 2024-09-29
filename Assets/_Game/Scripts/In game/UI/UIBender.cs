@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-public class UIBender : MonoBehaviour, IDragHandler, IDropHandler, IPointerUpHandler
+public class UIBender : MonoBehaviour, IDragHandler, IPointerUpHandler
 {
     [SerializeField] private RectTransform center;
     [SerializeField] private float maxDragSize, minDragSize, maxAngle;
@@ -14,7 +14,7 @@ public class UIBender : MonoBehaviour, IDragHandler, IDropHandler, IPointerUpHan
     private Vector2 placeholder;
     private bool isDragging;
 
-    private UnityAction onKnotDrop;
+    private UnityAction<float, bool> onKnotDrop;
     private UnityAction<float, float> onKnotDrag; //Drag length, angle length
 
     private RectTransform rectTransform => this.GetComponent<RectTransform>();
@@ -29,7 +29,7 @@ public class UIBender : MonoBehaviour, IDragHandler, IDropHandler, IPointerUpHan
     {
         this.onKnotDrag += callback;
     }
-    public void RegisterOnDropCallback(UnityAction callback)
+    public void RegisterOnDropCallback(UnityAction<float, bool> callback)
     {
         this.onKnotDrop += callback;
     }
@@ -37,7 +37,7 @@ public class UIBender : MonoBehaviour, IDragHandler, IDropHandler, IPointerUpHan
     {
         this.onKnotDrag += callback;
     }
-    public void UnregisterOnDropCallback(UnityAction callback)
+    public void UnregisterOnDropCallback(UnityAction<float, bool> callback)
     {
         this.onKnotDrop += callback;
     }
@@ -58,12 +58,6 @@ public class UIBender : MonoBehaviour, IDragHandler, IDropHandler, IPointerUpHan
         this.onKnotDrag?.Invoke(Vector2.Distance(rectTransform.anchoredPosition, center.anchoredPosition), rectTransform.anchoredPosition.x);
     }
 
-    public void OnDrop(PointerEventData eventData)
-    {
-        rectTransform.anchoredPosition = center.anchoredPosition;
-        placeholder = center.anchoredPosition;
-    }
-
     public void OnPointerUp(PointerEventData eventData)
     {
         rectTransform.anchoredPosition = center.anchoredPosition;
@@ -73,9 +67,14 @@ public class UIBender : MonoBehaviour, IDragHandler, IDropHandler, IPointerUpHan
     {
         if (Input.GetMouseButtonUp(0) && isDragging)
         {
+            var length = Vector2.Distance(rectTransform.anchoredPosition, center.anchoredPosition);
+            if (length > minDragSize)
+            {
+                this.onKnotDrop?.Invoke(length, true);
+            }
+            else this.onKnotDrop?.Invoke(length, false);
             rectTransform.anchoredPosition = center.anchoredPosition;
             placeholder = center.anchoredPosition;
-            this.onKnotDrop?.Invoke();
             this.isDragging = false;
         }
     }
