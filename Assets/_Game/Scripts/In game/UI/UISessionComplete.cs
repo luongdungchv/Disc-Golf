@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class UISessionComplete : MonoBehaviour
+public class UISessionComplete : UIComponent
 {
     [SerializeField] private Button nextHoleBtn;
 

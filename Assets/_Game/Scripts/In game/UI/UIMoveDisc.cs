@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class UIMoveDisc : MonoBehaviour
+public class UIMoveDisc : UIComponent
 {
     private Slider slider;
     private UnityAction<float> OnSliderValueChanged;

@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class UIDiscSelector : MonoBehaviour
+public class UIDiscSelector : UIComponent
 {
     [SerializeField] private Transform container;
     [SerializeField] private Button openBtn;

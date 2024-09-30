@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIDiscSelectButton : MonoBehaviour
+public class UIDiscSelectButton : UIComponent
 {
     [SerializeField] private Button btn;
     [SerializeField] private Image avatar;

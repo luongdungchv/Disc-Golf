@@ -5,7 +5,7 @@ using UnityEngine;
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
-    private void Awake(){
+    public void Init(){
         Instance = this;
 
         this.UIMoveDisc.Init();
@@ -18,4 +18,5 @@ public class UIManager : MonoBehaviour
     public UIDiscSelector UIDiscSelector;
     public UIThrowSelector UIThrowSelector;
     public UIMoveDisc UIMoveDisc;
+    public UILevelComplete UILevelComplete;
 }

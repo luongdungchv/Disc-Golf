@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-public class UIBender : MonoBehaviour, IDragHandler, IPointerUpHandler
+public class UIBender : UIComponent, IDragHandler, IPointerUpHandler
 {
     [SerializeField] private RectTransform center;
     [SerializeField] private float maxDragSize, minDragSize, maxAngle;

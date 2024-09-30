@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class UIAfterThrow : MonoBehaviour
+public class UIAfterThrow : UIComponent
 {
     [SerializeField] private Button throwAgainBtn, moveToTieBtn;
 

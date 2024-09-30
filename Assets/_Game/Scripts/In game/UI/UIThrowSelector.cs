@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIThrowSelector : MonoBehaviour
+public class UIThrowSelector : UIComponent
 {
     [SerializeField] private Button openBtn;
     [SerializeField] private Button btnDriveMode, btnPuttMode;
@@ -15,14 +15,6 @@ public class UIThrowSelector : MonoBehaviour
         this.btnDriveMode.onClick.AddListener(this.DriveModeButtonClick);
         this.btnPuttMode.onClick.AddListener(this.PuttModeButtonClick);
         //this.gameObject.SetActive(false);
-    }
-
-    public void ShowUI(){
-        this.gameObject.SetActive(true);
-    }
-
-    public void HideUI(){
-        this.gameObject.SetActive(false);
     }
 
     public void TogglePanel(){
