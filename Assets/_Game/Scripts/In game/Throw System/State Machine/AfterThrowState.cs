@@ -43,7 +43,9 @@ public class AfterThrowState : DL.StateMachine.StateBehaviour
         //throwController.CameraFollow.AdjustLookatTarget(targetCamPos, targetXAngle, targetYAngle);
         if (throwTarget.IsInBasket(throwController.Thrower.Disc))
         {
-            UIManager.Instance.UISessionComplete.gameObject.SetActive(true);
+            if(LevelManager.Instance.IsLastSession) 
+                UIManager.Instance.UILevelComplete.gameObject.SetActive(true);
+            else UIManager.Instance.UISessionComplete.gameObject.SetActive(true);
         }
         else
         {

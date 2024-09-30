@@ -14,6 +14,7 @@ public class LevelManager : MonoBehaviour
     private UnityAction OnLevelComplete;
 
     public LevelSession CurrentSessionInfo => this.currentSessionInfo;
+    public bool IsLastSession => this.currentSession == this.sessionList.Count - 1;
 
     private void Awake(){
         Instance = this;
@@ -31,9 +32,15 @@ public class LevelManager : MonoBehaviour
     public void RegisterLevelCompleteCallback(UnityAction callback){
         this.OnLevelComplete += callback;
     }
+    public void UnregisterLevelCompleteCallback(UnityAction callback){
+        this.OnLevelComplete += callback;
+    }
 
     public void NextSession(){
-        if(currentSession == sessionList.Count - 1) return;
+        if(currentSession == sessionList.Count - 1){
+            this.LevelComplete();
+            return;
+        }
         this.currentSessionInfo.throwTarget.gameObject.SetActive(false);
         StartSession(currentSession + 1);
         this.currentSessionInfo.throwTarget.gameObject.SetActive(true);
@@ -41,6 +48,7 @@ public class LevelManager : MonoBehaviour
 
     private void LevelComplete(){
         UIManager.Instance.UILevelComplete.ShowUI();
+        this.OnLevelComplete?.Invoke();
     }
 
     public void IncreaseThrow() => this.currentThrow++;
