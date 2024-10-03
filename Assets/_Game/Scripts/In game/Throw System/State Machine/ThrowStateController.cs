@@ -67,7 +67,7 @@ public class ThrowStateController : StateController
     public void NextHole(){
         var levelManager = LevelManager.Instance;
         levelManager.CurrentSessionInfo.throwTarget.gameObject.SetActive(false);
-        levelManager.NextSession(out var levelComplete);
+        levelManager.NextSession();
         var startPos = levelManager.CurrentSessionInfo.startInfo.position;
         Thrower.transform.position = startPos;
         Aimer.transform.position = startPos;
