@@ -11,7 +11,6 @@ public class ThrowTarget : MonoBehaviour
     [Sirenix.OdinInspector.Button]
     public bool IsInBasket(Disc disc){
         var colliders = Physics.OverlapBox(basketArea.center + basketArea.transform.position, VectorUtils.Multiply(basketArea.size, basketArea.transform.lossyScale) / 2, basketArea.transform.rotation, mask);
-        Debug.Log(colliders.Length);
         foreach(var col in colliders){
             var d = col.GetComponent<Disc>();
             if(disc == d) return true;

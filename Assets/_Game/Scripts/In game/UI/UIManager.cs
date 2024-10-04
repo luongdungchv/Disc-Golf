@@ -19,4 +19,5 @@ public class UIManager : MonoBehaviour
     public UIThrowSelector UIThrowSelector;
     public UIMoveDisc UIMoveDisc;
     public UILevelComplete UILevelComplete;
+    public UIMiniMap UIMiniMap;
 }

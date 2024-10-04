@@ -22,7 +22,7 @@ public class DiscThrower : MonoBehaviour
         Disc.transform.SetParent(aimer.transform);
         Disc.ResetState();
 
-        aimer.transform.position = this.transform.position;
+        aimer.transform.position = transform.position;
         
         this.cameraFollow.SetFollow(false);
     }  

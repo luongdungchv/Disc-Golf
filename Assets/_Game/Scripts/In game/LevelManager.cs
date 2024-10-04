@@ -20,6 +20,10 @@ public class LevelManager : MonoBehaviour
         Instance = this;
         UIManager.Instance.UIDiscSelector.ShowUI();
         UIManager.Instance.UIThrowSelector.ShowUI();
+        
+    }
+
+    private void Start() {
         this.StartSession(0);
     }
 
@@ -27,6 +31,7 @@ public class LevelManager : MonoBehaviour
         this.currentSession = index;
         this.currentSessionInfo = sessionList[index];
         this.currentThrow = 0;
+        DL.Utils.CoroutineUtils.Invoke(this, this.currentSessionInfo.sessionBound.InitializeSessionMap, 0);
     }
 
     public void RegisterLevelCompleteCallback(UnityAction callback){
@@ -44,6 +49,7 @@ public class LevelManager : MonoBehaviour
         this.currentSessionInfo.throwTarget.gameObject.SetActive(false);
         StartSession(currentSession + 1);
         this.currentSessionInfo.throwTarget.gameObject.SetActive(true);
+        //this.currentSessionInfo.sessionBound.InitializeSessionMap();
     }
 
     private void LevelComplete(){
@@ -57,5 +63,6 @@ public class LevelManager : MonoBehaviour
 public class LevelSession{
     public ThrowTarget throwTarget;
     public Transform startInfo;
+    public SessionBound sessionBound;
     public int par;
 }

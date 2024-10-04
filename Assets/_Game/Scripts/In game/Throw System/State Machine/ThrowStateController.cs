@@ -21,14 +21,16 @@ public class ThrowStateController : StateController
         uiManager.UISessionComplete.RegisterNextHoleClick(this.NextHole);
         uiManager.UIDirectionAdjuster.SetAimer(this.aimer);
         UIManager.Instance.UIMoveDisc.RegisterValueChangedCallback(this.MoveDiscHorizontally);
+        base.Awake();
     }
 
 
     protected override void Awake(){
         this.SetThrowerDrive();
-        base.Awake();
         Instance = this;
+        
     }
+    
 
     public void ThrowAgain(){
         LevelManager.Instance.IncreaseThrow();
@@ -47,8 +49,8 @@ public class ThrowStateController : StateController
             var point = Singleton<WaterBox>.Instance.GetClosestTerrainPoint(Thrower.Disc.transform.position);
             newPos = point + Vector3.up;
         }
-        Thrower.transform.position = newPos;
-        Aimer.transform.position = newPos;
+        // Thrower.transform.position = newPos;
+        // Aimer.transform.position = newPos;
 
         LevelManager.Instance.IncreaseThrow();
 
@@ -69,8 +71,8 @@ public class ThrowStateController : StateController
         levelManager.CurrentSessionInfo.throwTarget.gameObject.SetActive(false);
         levelManager.NextSession();
         var startPos = levelManager.CurrentSessionInfo.startInfo.position;
-        Thrower.transform.position = startPos;
-        Aimer.transform.position = startPos;
+        // Thrower.transform.position = startPos;
+        // Aimer.transform.position = startPos;
         this.ChangeState("Pre Throw");
     }
     

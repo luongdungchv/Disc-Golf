@@ -7,6 +7,10 @@ public class ImageCapturer : MonoBehaviour
     [SerializeField] private Camera captureCamera;
     [SerializeField] private Vector2Int imageResolution;
     
+
+    public float CameraSize => this.captureCamera.orthographicSize;
+    public Vector3 CameraPosition => this.captureCamera.transform.position;
+    
     public Texture2D Capture(){
         int width = imageResolution.x;
         int height = imageResolution.y;
@@ -28,8 +32,12 @@ public class ImageCapturer : MonoBehaviour
 #else
         Destroy(renderTexture);
 #endif
-
+        
         return texture;
+    }
+
+    public void SetCameraSize(float size){
+        this.captureCamera.orthographicSize = size;
     }
 
 #if UNITY_EDITOR

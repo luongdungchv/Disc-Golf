@@ -205,7 +205,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   releaseDist: 0.75
-  spdMultiplier: 0.2
+  spdMultiplier: 0.3
   dummyObj: {fileID: 0}
 --- !u!1 &5002402824209540633
 GameObject:

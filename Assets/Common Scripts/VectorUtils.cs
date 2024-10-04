@@ -104,7 +104,7 @@ public static class VectorUtils
         Vector3 b = linePoint + centerToTo.normalized * lineDirLength / Mathf.Abs(Mathf.Cos(angleTo)) - cutPoint;
 
         var angle = Mathf.Lerp(0, Vector3.Angle(a, b), value);
-        
+                
         var cross = Vector3.Cross(a, b).normalized;
         var dot = Vector3.Dot(cross, lineDir.normalized);
         if(dot < 0) angle = -angle;
