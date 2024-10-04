@@ -10,6 +10,7 @@ public class MainMenuManager : MonoBehaviour
         UIManager.Instance.UILevelComplete.HideUI();
         UIManager.Instance.UILevelComplete.HideUI();
         UIManager.Instance.UIAfterThrow.HideUI();
+        UIManager.Instance.UIMiniMap.HideUI();
 
         UIManager.Instance.UIMainMenu.ShowUI();
     }

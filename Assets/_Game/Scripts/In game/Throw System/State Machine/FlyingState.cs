@@ -13,6 +13,7 @@ public class FlyingState : StateBehaviour
         Debug.Log("drop");
         // throwController.Thrower.Throw();
         DiscSelector.Instance.SelectedThrower.Throw();
+        UIManager.Instance.UILevelInfo.HideUI();
     }
 
     public override void OnStateExit(StateController stateController)
@@ -42,5 +43,7 @@ public class FlyingState : StateBehaviour
         else{
             cd = 0;
         }
+
+        LevelManager.Instance.CurrentSessionInfo.sessionBound.UpdateDiscMarker();
     }
 }

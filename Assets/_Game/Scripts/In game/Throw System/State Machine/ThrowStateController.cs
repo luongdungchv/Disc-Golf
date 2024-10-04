@@ -22,6 +22,12 @@ public class ThrowStateController : StateController
         uiManager.UIDirectionAdjuster.SetAimer(this.aimer);
         UIManager.Instance.UIMoveDisc.RegisterValueChangedCallback(this.MoveDiscHorizontally);
         base.Awake();
+
+        var startPos = LevelManager.Instance.CurrentSessionInfo.startInfo.position;
+        Thrower.transform.position = startPos;
+        Aimer.transform.position = startPos;
+        Aimer.transform.rotation = LevelManager.Instance.CurrentSessionInfo.startInfo.rotation;
+        
     }
 
 
@@ -49,8 +55,8 @@ public class ThrowStateController : StateController
             var point = Singleton<WaterBox>.Instance.GetClosestTerrainPoint(Thrower.Disc.transform.position);
             newPos = point + Vector3.up;
         }
-        // Thrower.transform.position = newPos;
-        // Aimer.transform.position = newPos;
+        Thrower.transform.position = newPos;
+        Aimer.transform.position = newPos;
 
         LevelManager.Instance.IncreaseThrow();
 
@@ -70,9 +76,12 @@ public class ThrowStateController : StateController
         var levelManager = LevelManager.Instance;
         levelManager.CurrentSessionInfo.throwTarget.gameObject.SetActive(false);
         levelManager.NextSession();
+
         var startPos = levelManager.CurrentSessionInfo.startInfo.position;
-        // Thrower.transform.position = startPos;
-        // Aimer.transform.position = startPos;
+        Thrower.transform.position = startPos;
+        Aimer.transform.position = startPos;
+        Aimer.transform.rotation = levelManager.CurrentSessionInfo.startInfo.rotation;
+
         this.ChangeState("Pre Throw");
     }
     

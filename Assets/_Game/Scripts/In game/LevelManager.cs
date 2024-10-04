@@ -15,12 +15,14 @@ public class LevelManager : MonoBehaviour
 
     public LevelSession CurrentSessionInfo => this.currentSessionInfo;
     public bool IsLastSession => this.currentSession == this.sessionList.Count - 1;
+    public int CurrentThrow => this.currentThrow;
+    public int CurrentSession => this.currentSession;
 
     private void Awake(){
         Instance = this;
         UIManager.Instance.UIDiscSelector.ShowUI();
         UIManager.Instance.UIThrowSelector.ShowUI();
-        
+        UIManager.Instance.UIMiniMap.ShowUI();  
     }
 
     private void Start() {
@@ -49,7 +51,6 @@ public class LevelManager : MonoBehaviour
         this.currentSessionInfo.throwTarget.gameObject.SetActive(false);
         StartSession(currentSession + 1);
         this.currentSessionInfo.throwTarget.gameObject.SetActive(true);
-        //this.currentSessionInfo.sessionBound.InitializeSessionMap();
     }
 
     private void LevelComplete(){

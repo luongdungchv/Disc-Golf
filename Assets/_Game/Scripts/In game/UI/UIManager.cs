@@ -20,4 +20,5 @@ public class UIManager : MonoBehaviour
     public UIMoveDisc UIMoveDisc;
     public UILevelComplete UILevelComplete;
     public UIMiniMap UIMiniMap;
+    public UILevelInfo UILevelInfo;
 }

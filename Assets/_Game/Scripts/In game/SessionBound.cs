@@ -41,18 +41,22 @@ public class SessionBound : MonoBehaviour
     }
 
     public void InitializeSessionMap(){
-        var discPos = ThrowStateController.Instance.Thrower.transform.position.XZ();
+        var discPos = ThrowStateController.Instance.Thrower.Disc.transform.position.XZ();
         var targetPos = LevelManager.Instance.CurrentSessionInfo.throwTarget.transform.position.XZ();
 
         var discMinimapCoord = ConvertPointToMiniMapCoord(discPos);
         var targetMinimapCoord = ConvertPointToMiniMapCoord(targetPos);
 
-        Debug.Log((discMinimapCoord, targetMinimapCoord));
-
         uiMiniMap.SetTargetMarkerPosition(targetMinimapCoord);
         uiMiniMap.SetDiscMarkerPosition(discMinimapCoord);
 
         uiMiniMap.SetMapTexture(this.mapTex);
+    }
+
+    public void UpdateDiscMarker(){
+        var discPos = ThrowStateController.Instance.Thrower.Disc.transform.position.XZ();
+        var discMinimapCoord = ConvertPointToMiniMapCoord(discPos);
+        uiMiniMap.SetDiscMarkerPosition(discMinimapCoord);
     }
 
     public Vector2 ConvertPointToMiniMapCoord(Vector2 point){
